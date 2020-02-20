@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{import :: head}"></head>
+<!-- 引入ckeditor.js文件 -->
+<script src="/ckeditor/ckeditor.js"></script>
+
+<body>
+
+
+<div id="page-wraper">
+
+
+    <!-- Sidebar Menu -->
+    <div th:replace="~{navigation :: nav}"></div>
+
+
+
+
+    <section class="section about-me" data-section="section">
+        <div class="container">
+
+
+
+            <form action="/publish" method="post" enctype="multipart/form-data">
+
+                <div class="form-group">
+                    <label for="title">标题:</label>
+                    <input type="text" class="form-control"  th:value="${title}" id="title" name="title"
+                           placeholder="标题……"
+                           autocomplete="off">
+
+                </div>
+
+
+                <div class="form-group">
+                    <label for="description">描述:</label>
+                    <input type="text" class="form-control" th:value="${description}" id="description" name="description"
+                           placeholder="描述……"
+                           autocomplete="off">
+
+                </div>
+
+
+                <input type="hidden"  name="id" th:value="${id}"  />
+
+
+
+
+                <div class="form-group" id="question-editor">
+                    <label for="content">正文:</label>
+                    <textarea name="content" id="content" th:text="${content}" style="display:none;"
+                              class="form-control"
+                              cols="30"
+                              rows="10"></textarea>
+                </div>
+
+
+
+                <script>
+                    // 使用自定义配置
+                    var editorConfig = {
+                        customConfig: '/ckeditor/editorConfig.js'
+                    };
+
+                    CKEDITOR.replace( 'content', editorConfig);
+                </script>
+
+
+
+
+                <div class="form-group">
+                    <label for="title">标签:</label>
+                    <input type="text" class="form-control" th:value="${type}" id="type" name="type"
+                           placeholder="标签……:1是背景，2是项目，3是社会经历"
+                           autocomplete="off">
+
+
+                </div>
+
+
+                <div class="form-group">
+                    选择简介图像:<input type="file" id="file" name="file" /><input type="text" th:value="${imag}" th:text="${imag}" id="filePath" name="filePath"/>  <br>
+                </div>
+
+
+                <div class="container-fluid main ">
+                    <div class="row">
+                        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+
+                            <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12" th:if="${error!=null}"  th:text="${error}" ></div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+
+                            <button type="submit" class="btn btn-success btn-publish ">
+                                发布
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
+
+
+
+
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+<div th:replace="~{import :: script}"></div>
+
+
+
+</body>
+
+
+
+</html>

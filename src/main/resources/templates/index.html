@@ -1,90 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900"
-      rel="stylesheet"
-    />
+<html xmlns:th="http://www.thymeleaf.org">
 
-    <title>Reflux HTML CSS Template</title>
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <head th:replace="~{import :: head}"></head>
 
-    <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="assets/css/fontawesome.css" />
-    <link rel="stylesheet" href="assets/css/templatemo-style.css" />
-    <link rel="stylesheet" href="assets/css/owl.css" />
-    <link rel="stylesheet" href="assets/css/lightbox.css" />
-  </head>
 
   <body>
+
+
     <div id="page-wraper">
+
+
       <!-- Sidebar Menu -->
-      <div class="responsive-nav">
-        <i class="fa fa-bars" id="menu-toggle"></i>
-        <div id="menu" class="menu">
-          <i class="fa fa-times" id="menu-close"></i>
-          <div class="container">
-
-            <div class="image">
-              <a href="#"><img src="assets/images/author-image.jpg" alt="" /></a>
-            </div>
-
-            <div class="author-content">
-              <h4>BoBO</h4>
-              <span>的ShowTimE</span>
-            </div>
-
-            <nav class="main-nav" role="navigation">
-              <ul class="main-menu">
-                <li><a href="#section1">我是谁</a></li>
-                <li><a href="#section2">我的修行地</a></li>
-                <li><a href="#section3">我的项目</a></li>
-                <li><a href="#section4">社会活动</a></li>
-                <li><a href="#section5">我的能力</a></li>
-                <li><a href="#section6">联系我</a></li>
-
-              </ul>
-            </nav>
-
-            <div class="social-network">
-              <ul class="soial-icons">
-                <li>
-                  <a href="https://fb.com/templatemo"
-                    ><i class="fa fa-facebook"></i
-                  ></a>
-                </li>
-                <li>
-                  <a href="#"><i class="fa fa-twitter"></i></a>
-                </li>
-                <li>
-                  <a href="#"><i class="fa fa-linkedin"></i></a>
-                </li>
-                <li>
-                  <a href="#"><i class="fa fa-dribbble"></i></a>
-                </li>
-                <li>
-                  <a href="#"><i class="fa fa-rss"></i></a>
-                </li>
-              </ul>
-            </div>
-
-
-            <!--<div class="copyright-text">-->
-              <!--<p>Copyright 2019 Reflux Design - More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>-->
-            <!--</div>-->
-
-
-          </div>
-        </div>
-      </div>
+      <div th:replace="~{navigation :: nav}"></div>
 
 
 
@@ -112,10 +39,6 @@
 
 
 
-
-
-
-
       <!--第二栏，我的教育-->
       <section class="section my-services" data-section="section2">
         <div class="container">
@@ -129,53 +52,124 @@
 
 
 
-          <div class="left-image-post">
-            <div class="row">
+
+          <div  th:each="backPage,indexState : ${backPages}" th:class="${indexState.index%2}==0?'left-image-post':'right-image-post'">
+
+
+            <!--左右交替进行显示-->
+
+            <div class="row" th:if="${indexState.index%2}==0">
+
+
               <div class="col-md-6">
-                <div class="left-image">
-                  <img src="assets/images/cy.png" alt="" />
+                <div th:class="${indexState.index%2}==0?'left-image':'right-image'">
+                  <img th:src="${backPage.getImag()}" alt="" />
                 </div>
               </div>
+
               <div class="col-md-6">
-                <div class="right-text">
-                  <h4>重庆邮电大学</h4>
-                  <p>
-                    重庆邮电大学有很好的技术氛围，各个学院会经常与各大大企业一起合作在学校举办各种科技比赛，
-                    这对学生动手能力的培养十分有帮助，本人就是在这种氛围中成长起来的，本人主修电气工程机器自动化专业，在专业中学的最好的课程是
-                    信号处理与自动控制原理，这也为硕士期间的课题研究打下了基础。此外在那时我沉迷于游戏开发，这也帮助了我编程能力的培养，曾
-                    发布过几个小游戏，并且当过兼职讲师，教学游戏开发的编程知识。这4年来非常迷茫，所以不断尝试，参与过很多活动，过的还算挺充实的。
+                <div th:class="${indexState.index%2}==0?'right-text':'left-text'">
+                  <h4 th:text="${backPage.getTitle()}"></h4>
+                  <p th:text="${backPage.getDescript()}">
+
                   </p>
                   <div class="white-button">
-                    <a href="#">Read More</a>
+                    <a th:href="@{/page(path=${backPage.getId()})}">Read More</a>
                   </div>
                 </div>
               </div>
+
             </div>
-          </div>
 
 
-          <div class="right-image-post">
-            <div class="row">
+            <div class="row" th:if="${indexState.index%2}!=0">
+
+
               <div class="col-md-6">
-                <div class="left-text">
-                  <h4>重庆大学</h4>
-                  <p>
-                    虽然本科进行了很多的尝试，各种技术都会一点，但是都不精通，同时本人对自己当时的现状也不满意，所以希望能让自己成为一个更加优秀的人，然后
-                    过上让自己满意的生活，所以就攻读了硕士研究生。重庆大学拥有很好的学术氛围，经常有国外的知名学者来学校进行学术汇报。本人在光电工程学院就读，
-                    虽然专业是仪器科学与技术，但是主要从事变压器故障诊断的研究，并且结合了大数据技术与机器学习算法来搭建诊断系统。
+                <div th:class="${indexState.index%2}==0?'right-text':'left-text'">
+                  <h4 th:text="${backPage.getTitle()}"></h4>
+                  <p th:text="${backPage.getDescript()}">
+
                   </p>
                   <div class="white-button">
-                    <a href="#">Read More</a>
+                    <a th:href="@{/page(path=${backPage.getId()})}">Read More</a>
                   </div>
                 </div>
               </div>
+
+
               <div class="col-md-6">
-                <div class="right-image">
-                  <img src="assets/images/cd.jpeg" alt="" />
+                <div th:class="${indexState.index%2}!=0?'left-image':'right-image'">
+                  <img th:src="${backPage.getImag()}" alt="" />
                 </div>
               </div>
+
+
+
             </div>
+
+
           </div>
+
+
+
+
+
+
+          <!--<div class="left-image-post">-->
+            <!--<div class="row">-->
+              <!---->
+              <!--<div class="col-md-6">-->
+                <!--<div class="left-image">-->
+                  <!--<img src="assets/images/cy2.jpg" alt="" />-->
+                <!--</div>-->
+              <!--</div>-->
+              <!---->
+              <!--<div class="col-md-6">-->
+                <!--<div class="right-text">-->
+                  <!--<h4>重庆邮电大学</h4>-->
+                  <!--<p>-->
+                    <!--重庆邮电大学有很好的技术氛围，各个学院会经常与各大大企业一起合作在学校举办各种科技比赛，-->
+                    <!--这对学生动手能力的培养十分有帮助，本人就是在这种氛围中成长起来的，本人主修电气工程机器自动化专业，在专业中学的最好的课程是-->
+                    <!--信号处理与自动控制原理，这也为硕士期间的课题研究打下了基础。此外在那时我沉迷于游戏开发，这也帮助了我编程能力的培养，曾-->
+                    <!--发布过几个小游戏，并且当过兼职讲师，教学游戏开发的编程知识。-->
+                  <!--</p>-->
+                  <!--<div class="white-button">-->
+                    <!--<a href="#">Read More</a>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!---->
+            <!--</div>-->
+          <!--</div>-->
+
+
+          <!---->
+          <!--<div class="right-image-post">-->
+            <!--<div class="row">-->
+              <!---->
+              <!--<div class="col-md-6">-->
+                <!--<div class="left-text">-->
+                  <!--<h4>重庆大学</h4>-->
+                  <!--<p>-->
+                    <!--虽然本科进行了很多的尝试，各种技术都会一点，但是都不精通，同时本人对自己当时的现状也不满意，所以希望能让自己成为一个更加优秀的人，然后-->
+                    <!--过上让自己满意的生活，所以就攻读了硕士研究生。重庆大学拥有很好的学术氛围，经常有国外的知名学者来学校进行学术汇报。本人在光电工程学院就读，-->
+                    <!--虽然专业是仪器科学与技术，但是主要从事变压器故障诊断的研究，并且结合了大数据技术与机器学习算法来搭建诊断系统。-->
+                  <!--</p>-->
+                  <!--<div class="white-button">-->
+                    <!--<a href="#">Read More</a>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!---->
+              <!--<div class="col-md-6">-->
+                <!--<div class="right-image">-->
+                  <!--<img src="assets/images/cd.jpeg" alt="" />-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!---->
+          <!--</div>-->
 
 
 
@@ -189,12 +183,6 @@
 
 
 
-
-
-
-
-
-		<!--<div class="tlinks">Collect from <a href="http://www.cssmoban.com/" >建站模板</a></div>-->
 
 
 
@@ -282,128 +270,144 @@
               <div class="isotope-box">
 
 
-                <!--第一个项目-->
-                <div class="isotope-item" data-type="nature">
+
+                <!--项目-->
+                <div class="isotope-item" data-type="nature" th:each="projectPage : ${projectPagess}">
+
                   <figure class="snip1321">
                     <img
-                      src="assets/images/portfolio-01.jpg"
-                      alt="sq-sample26"
+                            th:src="${projectPage.getImag()}"
+                            alt="sq-sample26"
                     />
                     <figcaption>
-                      <a
-                        href="assets/images/portfolio-01.jpg"
-                        data-lightbox="image-1"
-                        data-title="Caption"
-                        ><i class="fa fa-search"></i
-                      ></a>
-                      <h4>变压器项目</h4>
-                      <span>free to use our template</span>
+                      <a th:href="@{/page(path=${projectPage.getId()})}">
+
+                        <i class="fa fa-search"></i>
+
+                      </a>
+                      <h4 th:text="${projectPage.getTitle()}"></h4>
+                      <span th:text="${projectPage.getDescript()}"></span>
                     </figcaption>
                   </figure>
+
                 </div>
 
 
-                <!--第二个项目-->
-                <div class="isotope-item" data-type="people">
-                  <figure class="snip1321">
-                    <img
-                      src="assets/images/portfolio-02.jpg"
-                      alt="sq-sample26"
-                    />
-                    <figcaption>
-                      <a
-                        href="assets/images/portfolio-02.jpg"
-                        data-lightbox="image-1"
-                        data-title="Caption"
-                        ><i class="fa fa-search"></i
-                      ></a>
-                      <h4>危险品物流项目</h4>
-                      <span>please tell your friends</span>
-                    </figcaption>
-                  </figure>
-                </div>
 
 
-                <!--第三个项目-->
-                <div class="isotope-item" data-type="animals">
-                  <figure class="snip1321">
-                    <img
-                      src="assets/images/portfolio-03.jpg"
-                      alt="sq-sample26"
-                    />
-                    <figcaption>
-                      <a
-                        href="assets/images/portfolio-03.jpg"
-                        data-lightbox="image-1"
-                        data-title="Caption"
-                        ><i class="fa fa-search"></i
-                      ></a>
-                      <h4>实验室网站</h4>
-                      <span>customize anything</span>
-                    </figcaption>
-                  </figure>
-                </div>
+                <!--&lt;!&ndash;第一个项目&ndash;&gt;-->
+                <!--<div class="isotope-item" data-type="nature">-->
+                  <!--<figure class="snip1321">-->
+                    <!--<img-->
+                      <!--src="assets/images/projectImage/transformerImage/transformHome.png"-->
+                      <!--alt="sq-sample26"-->
+                    <!--/>-->
+                    <!--<figcaption>-->
+                      <!--<a href="/project?path=transformer">-->
+                        <!--&lt;!&ndash;href="assets/images/portfolio-02.jpg"&ndash;&gt;-->
+                        <!--&lt;!&ndash;data-lightbox="image-1"&ndash;&gt;-->
+                        <!--&lt;!&ndash;data-title="Caption"&ndash;&gt;-->
+                        <!--<i class="fa fa-search"></i>-->
+
+                      <!--</a>-->
+                      <!--<h4>变压器项目</h4>-->
+                      <!--<span>重庆市级重点项目</span>-->
+                    <!--</figcaption>-->
+                  <!--</figure>-->
+                <!--</div>-->
 
 
-                <!--第四个项目-->
-                <div class="isotope-item" data-type="people">
-                  <figure class="snip1321">
-                    <img
-                      src="assets/images/portfolio-04.jpg"
-                      alt="sq-sample26"
-                    />
-                    <figcaption>
-                      <a
-                        href="assets/images/portfolio-04.jpg"
-                        data-lightbox="image-1"
-                        data-title="Caption"
-                        ><i class="fa fa-search"></i
-                      ></a>
-                      <h4>个人论坛</h4>
-                      <span>Re-distribution not allowed</span>
-                    </figcaption>
-                  </figure>
-                </div>
 
-                <!--第五个项目-->
-                <div class="isotope-item" data-type="nature">
-                  <figure class="snip1321">
-                    <img
-                      src="assets/images/portfolio-05.jpg"
-                      alt="sq-sample26"
-                    />
-                    <figcaption>
-                      <a
-                        href="assets/images/portfolio-05.jpg"
-                        data-lightbox="image-1"
-                        data-title="Caption"
-                        ><i class="fa fa-search"></i
-                      ></a>
-                      <h4>第一人称射击游戏</h4>
-                      <span>Ut sollicitudin risus</span>
-                    </figcaption>
-                  </figure>
-                </div>
 
-                <!--第五个项目-->
-                <div class="isotope-item" data-type="animals">
-                  <figure class="snip1321">
-                    <img
-                      src="assets/images/portfolio-06.jpg"
-                      alt="sq-sample26"
-                    />
-                    <figcaption>
-                      <a
-                        href="assets/images/portfolio-06.jpg"
-                        data-lightbox="image-1"
-                        data-title="Caption"
-                        ><i class="fa fa-search"></i
-                      ></a>
-                      <h4>跑酷游戏</h4>
-                      <span>Donec eget massa ante</span>
-                    </figcaption>
-                  </figure>
-                </div>
+
+                <!--&lt;!&ndash;第2个项目&ndash;&gt;-->
+                <!--<div class="isotope-item" data-type="animals">-->
+                  <!--<figure class="snip1321">-->
+                    <!--<img-->
+                      <!--src="assets/images/projectImage/labImage/labHome.png"-->
+                      <!--alt="sq-sample26"-->
+                    <!--/>-->
+                    <!--<figcaption>-->
+                      <!--<a href="/project?path=lab">-->
+                        <!--&lt;!&ndash;href="assets/images/portfolio-03.jpg"&ndash;&gt;-->
+                        <!--&lt;!&ndash;data-lightbox="image-1"&ndash;&gt;-->
+                        <!--&lt;!&ndash;data-title="Caption"&ndash;&gt;-->
+                        <!--<i class="fa fa-search"></i></a>-->
+                      <!--<h4>实验室网站</h4>-->
+                      <!--<span>实验室宣传用的网站</span>-->
+                    <!--</figcaption>-->
+                  <!--</figure>-->
+                <!--</div>-->
+
+
+                <!--&lt;!&ndash;第3个项目&ndash;&gt;-->
+                <!--<div class="isotope-item" data-type="people">-->
+                  <!--<figure class="snip1321">-->
+                    <!--<img-->
+                      <!--src="assets/images/projectImage/forumImage/forumHome.png"-->
+                      <!--alt="sq-sample26"-->
+                    <!--/>-->
+                    <!--<figcaption>-->
+                      <!--<a href="/project?path=forum">-->
+                        <!--&lt;!&ndash;href=""&ndash;&gt;-->
+                        <!--&lt;!&ndash;data-lightbox="image-1"&ndash;&gt;-->
+                        <!--&lt;!&ndash;data-title="Caption"&ndash;&gt;-->
+                        <!--<i class="fa fa-search"></i></a>-->
+                      <!--<h4>个人论坛</h4>-->
+                      <!--<span>用于留言与讨论或者学习记录的论坛</span>-->
+                    <!--</figcaption>-->
+                  <!--</figure>-->
+                <!--</div>-->
+
+                <!--&lt;!&ndash;第4个项目&ndash;&gt;-->
+                <!--<div class="isotope-item" data-type="nature">-->
+                  <!--<figure class="snip1321">-->
+                    <!--<img-->
+                      <!--src="assets/images/projectImage/zombieImage/zombieHome.png"-->
+                      <!--alt="sq-sample26"-->
+                    <!--/>-->
+                    <!--<figcaption>-->
+                      <!--<a href="/project?path=zombie">-->
+
+                        <!--<i class="fa fa-search"></i></a>-->
+                      <!--<h4>僵尸魅影</h4>-->
+                      <!--<span>第一人称射击游戏</span>-->
+                    <!--</figcaption>-->
+                  <!--</figure>-->
+                <!--</div>-->
+
+                <!--&lt;!&ndash;第五个项目&ndash;&gt;-->
+                <!--<div class="isotope-item" data-type="animals">-->
+                  <!--<figure class="snip1321">-->
+                    <!--<img-->
+                      <!--src="assets/images/projectImage/portfolio-06.jpg"-->
+                      <!--alt="sq-sample26"-->
+                    <!--/>-->
+                    <!--<figcaption>-->
+                      <!--<a href="/project?path=paoku">-->
+                        <!--<i class="fa fa-search"></i></a>-->
+                      <!--<h4>追逐繁星的孩子</h4>-->
+                      <!--<span>跑酷游戏</span>-->
+                    <!--</figcaption>-->
+                  <!--</figure>-->
+                <!--</div>-->
+
+
+                <!--&lt;!&ndash;第6个项目&ndash;&gt;-->
+                <!--<div class="isotope-item" data-type="people">-->
+                  <!--<figure class="snip1321">-->
+                    <!--<img-->
+                            <!--src="assets/images/projectImage/portfolio-02.jpg"-->
+                            <!--alt="sq-sample26"-->
+                    <!--/>-->
+                    <!--<figcaption>-->
+                      <!--<a href="/project?path=buyokaojinwo">-->
+                        <!--<i class="fa fa-search"></i></a>-->
+                      <!--<h4>不要靠近我</h4>-->
+                      <!--<span>小游戏</span>-->
+                    <!--</figcaption>-->
+                  <!--</figure>-->
+                <!--</div>-->
 
 
               </div>
@@ -423,62 +427,69 @@
           <div class="section-heading">
             <h2>我的社会活动</h2>
             <div class="line-dec"></div>
-            <span>我是参与过这些社会活动</span>
+            <span
+            >我是参与的社会活动</span
+            >
           </div>
 
 
 
-          <div class="left-image-post">
-            <div class="row">
+          <div  th:each="socialPage,indexState : ${socialPages}" th:class="${indexState.index%2}==0?'left-image-post':'right-image-post'">
+
+            <!--左右交替进行显示-->
+
+            <div class="row" th:if="${indexState.index%2}==0">
+
+
               <div class="col-md-6">
-                <div class="left-image">
-                  <img src="assets/images/cy.png" alt="" />
+                <div th:class="${indexState.index%2}==0?'left-image':'right-image'">
+                  <img th:src="${socialPage.getImag()}" alt="" />
                 </div>
               </div>
+
               <div class="col-md-6">
-                <div class="right-text">
-                  <h4>蛮牛教育兼职讲师</h4>
-                  <p>
-                    重庆邮电大学有很好的技术氛围，各个学院会经常与各大大企业一起合作在学校举办各种科技比赛，
-                    这对学生动手能力的培养十分有帮助，本人就是在这种氛围中成长起来的，本人主修电气工程机器自动化专业，在专业中学的最好的课程是
-                    信号处理与自动控制原理，这也为硕士期间的课题研究打下了基础。此外在那时我沉迷于游戏开发，这也帮助了我编程能力的培养，曾
-                    发布过几个小游戏，并且当过兼职讲师，教学游戏开发的编程知识。这4年来非常迷茫，所以不断尝试，参与过很多活动，过的还算挺充实的。
+                <div th:class="${indexState.index%2}==0?'right-text':'left-text'">
+                  <h4 th:text="${socialPage.getTitle()}"></h4>
+                  <p th:text="${socialPage.getDescript()}">
+
                   </p>
                   <div class="white-button">
-                    <a href="#">Read More</a>
+                    <a th:href="@{/page(path=${socialPage.getId()})}">Read More</a>
                   </div>
                 </div>
               </div>
+
             </div>
-          </div>
 
 
-          <div class="right-image-post">
-            <div class="row">
+            <div class="row" th:if="${indexState.index%2}!=0">
+
+
               <div class="col-md-6">
-                <div class="left-text">
-                  <h4>泰克在线兼职讲师</h4>
-                  <p>
-                    虽然本科进行了很多的尝试，各种技术都会一点，但是都不精通，同时本人对自己当时的现状也不满意，所以希望能让自己成为一个更加优秀的人，然后
-                    过上让自己满意的生活，所以就攻读了硕士研究生。重庆大学拥有很好的学术氛围，经常有国外的知名学者来学校进行学术汇报。本人在光电工程学院就读，
-                    虽然专业是仪器科学与技术，但是主要从事变压器故障诊断的研究，并且结合了大数据技术与机器学习算法来搭建诊断系统。
+                <div th:class="${indexState.index%2}==0?'right-text':'left-text'">
+                  <h4 th:text="${socialPage.getTitle()}"></h4>
+                  <p th:text="${socialPage.getDescript()}">
+
                   </p>
                   <div class="white-button">
-                    <a href="#">Read More</a>
+                    <a th:href="@{/page(path=${socialPage.getId()})}">Read More</a>
                   </div>
                 </div>
               </div>
+
+
               <div class="col-md-6">
-                <div class="right-image">
-                  <img src="assets/images/cd.jpeg" alt="" />
+                <div th:class="${indexState.index%2}!=0?'left-image':'right-image'">
+                  <img th:src="${socialPage.getImag()}" alt="" />
                 </div>
               </div>
+
+
+
             </div>
+
+
           </div>
-
-
-
-
 
 
 
@@ -506,50 +517,60 @@
 
 
           <div class="row">
-          <div class="col-md-6">
-          <div class="service-item">
-          <div class="first-service-icon service-icon"></div>
-          <h4>HTML5 &amp; CSS3</h4>
-          <p>
-          Phasellus non convallis dolor. Integer tempor hendrerit arcu
-          at bibendum. Sed ac ante non metus vehicula congue quis eget
-          eros.
-          </p>
-          </div>
-          </div>
-          <div class="col-md-6">
-          <div class="service-item">
-          <div class="second-service-icon service-icon"></div>
-          <h4>Creative Ideas</h4>
-          <p>
-          Proin lacus massa, eleifend sed fermentum in, dignissim vel
-          metus. Nunc accumsan leo nec felis porttitor, ultricies
-          faucibus purus mollis.
-          </p>
-          </div>
-          </div>
-          <div class="col-md-6">
-          <div class="service-item">
-          <div class="third-service-icon service-icon"></div>
-          <h4>Easy Customize</h4>
-          <p>
-          Integer suscipit condimentum aliquet. Nam quis risus metus.
-          Nullam faucibus quam eget arcu pretium tincidunt. Nam libero
-          dui.
-          </p>
-          </div>
-          </div>
-          <div class="col-md-6">
-          <div class="service-item">
-          <div class="fourth-service-icon service-icon"></div>
-          <h4>Admin Dashboard</h4>
-          <p>
-          Vivamus et dui a massa venenatis fringilla. Proin lacus massa,
-          eleifend sed fermentum in, dignissim vel metus. Nunc accumsan
-          leo nec felis porttitor.
-          </p>
-          </div>
-          </div>
+
+            <div class="col-md-6">
+              <div class="service-item">
+                <div class="first-service-icon service-icon"></div>
+                <h4>HTML5 &amp; CSS3</h4>
+                <p>
+                  Phasellus non convallis dolor. Integer tempor hendrerit arcu
+                  at bibendum. Sed ac ante non metus vehicula congue quis eget
+                  eros.
+                </p>
+              </div>
+            </div>
+
+
+            <div class="col-md-6">
+            <div class="service-item">
+            <div class="second-service-icon service-icon"></div>
+            <h4>Creative Ideas</h4>
+            <p>
+            Proin lacus massa, eleifend sed fermentum in, dignissim vel
+            metus. Nunc accumsan leo nec felis porttitor, ultricies
+            faucibus purus mollis.
+            </p>
+            </div>
+            </div>
+
+
+            <div class="col-md-6">
+            <div class="service-item">
+            <div class="third-service-icon service-icon"></div>
+            <h4>Easy Customize</h4>
+            <p>
+            Integer suscipit condimentum aliquet. Nam quis risus metus.
+            Nullam faucibus quam eget arcu pretium tincidunt. Nam libero
+            dui.
+            </p>
+            </div>
+            </div>
+
+
+            <div class="col-md-6">
+            <div class="service-item">
+            <div class="fourth-service-icon service-icon"></div>
+            <h4>Admin Dashboard</h4>
+            <p>
+            Vivamus et dui a massa venenatis fringilla. Proin lacus massa,
+            eleifend sed fermentum in, dignissim vel metus. Nunc accumsan
+            leo nec felis porttitor.
+            </p>
+            </div>
+            </div>
+
+
+
           </div>
 
 
@@ -643,64 +664,14 @@
 
     </div>
 
-    <!-- Scripts -->
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <script src="assets/js/isotope.min.js"></script>
-    <script src="assets/js/owl-carousel.js"></script>
-    <script src="assets/js/lightbox.js"></script>
-    <script src="assets/js/custom.js"></script>
-    <script>
-      //according to loftblog tut
-      $(".main-menu li:first").addClass("active");
 
-      var showSection = function showSection(section, isAnimate) {
-        var direction = section.replace(/#/, ""),
-          reqSection = $(".section").filter(
-            '[data-section="' + direction + '"]'
-          ),
-          reqSectionPos = reqSection.offset().top - 0;
+    <div th:replace="~{import :: script}"></div>
 
-        if (isAnimate) {
-          $("body, html").animate(
-            {
-              scrollTop: reqSectionPos
-            },
-            800
-          );
-        } else {
-          $("body, html").scrollTop(reqSectionPos);
-        }
-      };
 
-      var checkSection = function checkSection() {
-        $(".section").each(function() {
-          var $this = $(this),
-            topEdge = $this.offset().top - 80,
-            bottomEdge = topEdge + $this.height(),
-            wScroll = $(window).scrollTop();
-          if (topEdge < wScroll && bottomEdge > wScroll) {
-            var currentId = $this.data("section"),
-              reqLink = $("a").filter("[href*=\\#" + currentId + "]");
-            reqLink
-              .closest("li")
-              .addClass("active")
-              .siblings()
-              .removeClass("active");
-          }
-        });
-      };
 
-      $(".main-menu").on("click", "a", function(e) {
-        e.preventDefault();
-        showSection($(this).attr("href"), true);
-      });
-
-      $(window).scroll(function() {
-        checkSection();
-      });
-    </script>
   </body>
+
+
+
 </html>

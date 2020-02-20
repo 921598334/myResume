@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+    <div th:fragment="nav" class="responsive-nav">
+        <i class="fa fa-bars" id="menu-toggle"></i>
+        <div id="menu" class="menu">
+            <i class="fa fa-times" id="menu-close"></i>
+            <div class="container">
+
+                <div class="image">
+                    <a href="/"><img src="/assets/images/author-image.jpg" alt="" /></a>
+                </div>
+
+                <div class="author-content">
+                    <h4>BoBO</h4>
+                    <span>所谓的觉悟，不是自我牺牲，而是不惜一切代价、不择手段也要达到目的的一种漆黑意志</span>
+                </div>
+
+
+                <nav class="main-nav" role="navigation">
+
+                    <!--#httpServletRequest.getRequestURI()得到当前url路径-->
+                    <ul class="main-menu" th:if="${#httpServletRequest.getRequestURI()=='/'}">
+
+                        <li><a href="#section1">我是谁</a></li>
+                        <li><a href="#section2">我的修行地</a></li>
+                        <li><a href="#section3">我的项目</a></li>
+                        <li><a href="#section4">社会活动</a></li>
+                        <li><a href="#section5">我的能力</a></li>
+                        <li><a href="#section6">联系我</a></li>
+                    </ul>
+
+
+                    <ul  th:if="${#httpServletRequest.getRequestURI()!='/'}">
+                        <li><a href="/">返回主页面</a></li>
+                    </ul>
+
+
+                </nav>
+
+                <div class="social-network">
+                    <ul class="soial-icons">
+                        <li>
+                            <a href="https://fb.com/templatemo"
+                            ><i class="fa fa-facebook"></i
+                            ></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-linkedin"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-dribbble"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-rss"></i></a>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <div class="copyright-text">
+                <p>相关链接：  <a href="http://www.cssmoban.com/">重庆大学 </a> -  <a href="http://www.cssmoban.com/" >智能结构与控制实验室</a>-  <a href="http://www.cssmoban.com/" >个人论坛</a></p>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</html>

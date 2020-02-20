@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+  <head th:replace="~{import :: head}"></head>
+
+
+
+  <style>
+
+    div img:nth-child(n){
+
+      width: auto;
+      overflow: hidden;
+
+    }
+
+
+
+
+
+  </style>
+
+
+  <body>
+
+
+    <div id="page-wraper">
+
+
+      <!-- Sidebar Menu -->
+      <div th:replace="~{navigation :: nav}"></div>
+
+
+
+
+
+      <section class="section about-me">
+        <div class="container">
+
+          <div class="section-heading">
+            <h2 th:text="${page.title}"></h2>
+            <div class="line-dec"></div>
+
+          </div>
+
+          <div  style="width: auto" th:utext= "${page.content}"></div>
+
+
+
+
+
+
+
+        </div>
+
+      </section>
+
+
+    </div>
+
+
+
+    <div th:replace="~{import :: script}"></div>
+
+
+
+  </body>
+
+
+
+</html>
