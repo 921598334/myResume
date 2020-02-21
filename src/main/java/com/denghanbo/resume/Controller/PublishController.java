@@ -176,25 +176,29 @@ public class PublishController {
 
 
 
+        String profilePath = null;
 
 
-        String profilePath = fileUpload.uploadImage(imag);
+        //根据id得到老的文章
+        Optional<Page> oldPages = pageRepository.findById(id);
+        Page oldPage = oldPages.get();
+
+        //如果现在的文件如今与之前的一样，那就不更新图片
+        if(oldPage.getImag().equals(filePath)){
+            profilePath = oldPage.getImag();
+        }else {
+            //否则要重新上传新图片
+            profilePath = fileUpload.uploadImage(imag);
+        }
+
+
 
         Page page = new Page();
         page.setContent(content);
         page.setDescript(description);
         page.setTitle(title);
         page.setType(type);
-
-
-        if(profilePath==null){
-            //表明没有在更新时上传新的图片，还是把路径设置为老的路径
-            page.setImag(filePath);
-        }else {
-            //有新的图片，需要更新下
-            page.setImag(profilePath);
-        }
-
+        page.setImag(profilePath);
 
 
 

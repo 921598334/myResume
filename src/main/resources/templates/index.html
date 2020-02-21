@@ -20,6 +20,9 @@
       <section class="section about-me" data-section="section1">
         <div class="container">
 
+          <!--用户发信息给我成功时会弹出-->
+          <div class="alert alert-info col-lg-12 col-md-12 col-sm-12 col-xs-12" th:if="${info!=null}"  th:text="${info}" ></div>
+
           <div class="section-heading">
             <h2>我是谁了？</h2>
             <div class="line-dec"></div>
@@ -28,7 +31,6 @@
               但是我自己又是如何看待自己的了？我想我或许是一个希望探索宇宙本质，事物根源的宗教信徒吧</span>
 
           </div>
-
 
 
 
@@ -52,27 +54,27 @@
 
 
 
-
           <div  th:each="backPage,indexState : ${backPages}" th:class="${indexState.index%2}==0?'left-image-post':'right-image-post'">
 
 
             <!--左右交替进行显示-->
 
+
             <div class="row" th:if="${indexState.index%2}==0">
 
-
+              <!--图片-->
               <div class="col-md-6">
                 <div th:class="${indexState.index%2}==0?'left-image':'right-image'">
                   <img th:src="${backPage.getImag()}" alt="" />
                 </div>
               </div>
 
+              <!--简介-->
               <div class="col-md-6">
                 <div th:class="${indexState.index%2}==0?'right-text':'left-text'">
                   <h4 th:text="${backPage.getTitle()}"></h4>
-                  <p th:text="${backPage.getDescript()}">
+                  <p th:text="${backPage.getDescript()}"></p>
 
-                  </p>
                   <div class="white-button">
                     <a th:href="@{/page(path=${backPage.getId()})}">Read More</a>
                   </div>
@@ -84,20 +86,18 @@
 
             <div class="row" th:if="${indexState.index%2}!=0">
 
-
+              <!--简介-->
               <div class="col-md-6">
                 <div th:class="${indexState.index%2}==0?'right-text':'left-text'">
                   <h4 th:text="${backPage.getTitle()}"></h4>
-                  <p th:text="${backPage.getDescript()}">
-
-                  </p>
+                  <p th:text="${backPage.getDescript()}"></p>
                   <div class="white-button">
                     <a th:href="@{/page(path=${backPage.getId()})}">Read More</a>
                   </div>
                 </div>
               </div>
 
-
+              <!--图片-->
               <div class="col-md-6">
                 <div th:class="${indexState.index%2}!=0?'left-image':'right-image'">
                   <img th:src="${backPage.getImag()}" alt="" />
@@ -109,70 +109,9 @@
             </div>
 
 
+
+
           </div>
-
-
-
-
-
-
-          <!--<div class="left-image-post">-->
-            <!--<div class="row">-->
-              <!---->
-              <!--<div class="col-md-6">-->
-                <!--<div class="left-image">-->
-                  <!--<img src="assets/images/cy2.jpg" alt="" />-->
-                <!--</div>-->
-              <!--</div>-->
-              <!---->
-              <!--<div class="col-md-6">-->
-                <!--<div class="right-text">-->
-                  <!--<h4>重庆邮电大学</h4>-->
-                  <!--<p>-->
-                    <!--重庆邮电大学有很好的技术氛围，各个学院会经常与各大大企业一起合作在学校举办各种科技比赛，-->
-                    <!--这对学生动手能力的培养十分有帮助，本人就是在这种氛围中成长起来的，本人主修电气工程机器自动化专业，在专业中学的最好的课程是-->
-                    <!--信号处理与自动控制原理，这也为硕士期间的课题研究打下了基础。此外在那时我沉迷于游戏开发，这也帮助了我编程能力的培养，曾-->
-                    <!--发布过几个小游戏，并且当过兼职讲师，教学游戏开发的编程知识。-->
-                  <!--</p>-->
-                  <!--<div class="white-button">-->
-                    <!--<a href="#">Read More</a>-->
-                  <!--</div>-->
-                <!--</div>-->
-              <!--</div>-->
-              <!---->
-            <!--</div>-->
-          <!--</div>-->
-
-
-          <!---->
-          <!--<div class="right-image-post">-->
-            <!--<div class="row">-->
-              <!---->
-              <!--<div class="col-md-6">-->
-                <!--<div class="left-text">-->
-                  <!--<h4>重庆大学</h4>-->
-                  <!--<p>-->
-                    <!--虽然本科进行了很多的尝试，各种技术都会一点，但是都不精通，同时本人对自己当时的现状也不满意，所以希望能让自己成为一个更加优秀的人，然后-->
-                    <!--过上让自己满意的生活，所以就攻读了硕士研究生。重庆大学拥有很好的学术氛围，经常有国外的知名学者来学校进行学术汇报。本人在光电工程学院就读，-->
-                    <!--虽然专业是仪器科学与技术，但是主要从事变压器故障诊断的研究，并且结合了大数据技术与机器学习算法来搭建诊断系统。-->
-                  <!--</p>-->
-                  <!--<div class="white-button">-->
-                    <!--<a href="#">Read More</a>-->
-                  <!--</div>-->
-                <!--</div>-->
-              <!--</div>-->
-              <!---->
-              <!--<div class="col-md-6">-->
-                <!--<div class="right-image">-->
-                  <!--<img src="assets/images/cd.jpeg" alt="" />-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!---->
-          <!--</div>-->
-
-
-
 
 
 
@@ -198,78 +137,113 @@
           <div class="row">
             <div class="isotope-wrapper">
 
-              <form class="isotope-toolbar">
-
-                <label
-                  ><input
-                    type="radio"
-                    data-type="*"
-                    checked=""
-                    name="isotope-filter"
-                  />
-                  <span>所有项目</span></label
-                >
-
-                <label
-                  ><input
-                    type="radio"
-                    data-type="people"
-                    name="isotope-filter"
-                  />
-                  <span>硕士项目</span></label
-                >
-
-                <label
-                  ><input
-                    type="radio"
-                    data-type="nature"
-                    name="isotope-filter"
-                  />
-                  <span>本科项目</span></label
-                >
-
-                <label
-                  ><input
-                    type="radio"
-                    data-type="animals"
-                    name="isotope-filter"
-                  />
-                  <span>游戏类</span></label
-                >
-
-                <label
-                ><input
-                        type="radio"
-                        data-type="animals"
-                        name="isotope-filter"
-                />
-                  <span>网站类</span></label
-                >
-
-                <label
-                ><input
-                        type="radio"
-                        data-type="animals"
-                        name="isotope-filter"
-                />
-                  <span>监控系统</span></label
-                >
 
 
-                <label
-                ><input
-                        type="radio"
-                        data-type="animals"
-                        name="isotope-filter"
-                />
-                  <span>大数据与机器学习类</span></label
-                >
 
-              </form>
+              <!--<form class="isotope-toolbar">-->
+
+                <!--<label-->
+                  <!--&gt;<input-->
+                    <!--type="radio"-->
+                    <!--data-type="*"-->
+                    <!--checked=""-->
+                    <!--name="isotope-filter"-->
+                  <!--/>-->
+                  <!--<span>所有项目</span></label-->
+                <!--&gt;-->
+
+                <!--<label-->
+                  <!--&gt;<input-->
+                    <!--type="radio"-->
+                    <!--data-type="people"-->
+                    <!--name="isotope-filter"-->
+                  <!--/>-->
+                  <!--<span>硕士项目</span></label-->
+                <!--&gt;-->
+
+                <!--<label-->
+                  <!--&gt;<input-->
+                    <!--type="radio"-->
+                    <!--data-type="nature"-->
+                    <!--name="isotope-filter"-->
+                  <!--/>-->
+                  <!--<span>本科项目</span></label-->
+                <!--&gt;-->
+
+                <!--<label-->
+                  <!--&gt;<input-->
+                    <!--type="radio"-->
+                    <!--data-type="animals"-->
+                    <!--name="isotope-filter"-->
+                  <!--/>-->
+                  <!--<span>游戏类</span></label-->
+                <!--&gt;-->
+
+                <!--<label-->
+                <!--&gt;<input-->
+                        <!--type="radio"-->
+                        <!--data-type="animals"-->
+                        <!--name="isotope-filter"-->
+                <!--/>-->
+                  <!--<span>网站类</span></label-->
+                <!--&gt;-->
+
+                <!--<label-->
+                <!--&gt;<input-->
+                        <!--type="radio"-->
+                        <!--data-type="animals"-->
+                        <!--name="isotope-filter"-->
+                <!--/>-->
+                  <!--<span>监控系统</span></label-->
+                <!--&gt;-->
+
+
+                <!--<label-->
+                <!--&gt;<input-->
+                        <!--type="radio"-->
+                        <!--data-type="animals"-->
+                        <!--name="isotope-filter"-->
+                <!--/>-->
+                  <!--<span>大数据与机器学习类</span></label-->
+                <!--&gt;-->
+
+              <!--</form>-->
+
+
+
+
+
+
+              <!--<div class="isotope-box">-->
+                <!---->
+                <!--&lt;!&ndash;项目&ndash;&gt;-->
+                <!--<div class="isotope-item" data-type="nature" th:each="projectPage : ${projectPagess}">-->
+
+                  <!--<figure class="snip1321">-->
+                    <!--<img-->
+                            <!--th:src="${projectPage.getImag()}"-->
+                            <!--alt="sq-sample26"-->
+                    <!--/>-->
+                    <!--<figcaption>-->
+                      <!--<a th:href="@{/page(path=${projectPage.getId()})}">-->
+
+                        <!--<i class="fa fa-search"></i>-->
+
+                      <!--</a>-->
+                      <!--<h4 th:text="${projectPage.getTitle()}"></h4>-->
+                      <!--<span th:text="${projectPage.getDescript()}"></span>-->
+                    <!--</figcaption>-->
+                  <!--</figure>-->
+
+                <!--</div>-->
+
+              <!--</div>-->
+
+
+
+
 
               <div class="isotope-box">
-
-
 
                 <!--项目-->
                 <div class="isotope-item" data-type="nature" th:each="projectPage : ${projectPagess}">
@@ -292,125 +266,11 @@
 
                 </div>
 
-
-
-
-                <!--&lt;!&ndash;第一个项目&ndash;&gt;-->
-                <!--<div class="isotope-item" data-type="nature">-->
-                  <!--<figure class="snip1321">-->
-                    <!--<img-->
-                      <!--src="assets/images/projectImage/transformerImage/transformHome.png"-->
-                      <!--alt="sq-sample26"-->
-                    <!--/>-->
-                    <!--<figcaption>-->
-                      <!--<a href="/project?path=transformer">-->
-                        <!--&lt;!&ndash;href="assets/images/portfolio-02.jpg"&ndash;&gt;-->
-                        <!--&lt;!&ndash;data-lightbox="image-1"&ndash;&gt;-->
-                        <!--&lt;!&ndash;data-title="Caption"&ndash;&gt;-->
-                        <!--<i class="fa fa-search"></i>-->
-
-                      <!--</a>-->
-                      <!--<h4>变压器项目</h4>-->
-                      <!--<span>重庆市级重点项目</span>-->
-                    <!--</figcaption>-->
-                  <!--</figure>-->
-                <!--</div>-->
-
-
-
-
-
-                <!--&lt;!&ndash;第2个项目&ndash;&gt;-->
-                <!--<div class="isotope-item" data-type="animals">-->
-                  <!--<figure class="snip1321">-->
-                    <!--<img-->
-                      <!--src="assets/images/projectImage/labImage/labHome.png"-->
-                      <!--alt="sq-sample26"-->
-                    <!--/>-->
-                    <!--<figcaption>-->
-                      <!--<a href="/project?path=lab">-->
-                        <!--&lt;!&ndash;href="assets/images/portfolio-03.jpg"&ndash;&gt;-->
-                        <!--&lt;!&ndash;data-lightbox="image-1"&ndash;&gt;-->
-                        <!--&lt;!&ndash;data-title="Caption"&ndash;&gt;-->
-                        <!--<i class="fa fa-search"></i></a>-->
-                      <!--<h4>实验室网站</h4>-->
-                      <!--<span>实验室宣传用的网站</span>-->
-                    <!--</figcaption>-->
-                  <!--</figure>-->
-                <!--</div>-->
-
-
-                <!--&lt;!&ndash;第3个项目&ndash;&gt;-->
-                <!--<div class="isotope-item" data-type="people">-->
-                  <!--<figure class="snip1321">-->
-                    <!--<img-->
-                      <!--src="assets/images/projectImage/forumImage/forumHome.png"-->
-                      <!--alt="sq-sample26"-->
-                    <!--/>-->
-                    <!--<figcaption>-->
-                      <!--<a href="/project?path=forum">-->
-                        <!--&lt;!&ndash;href=""&ndash;&gt;-->
-                        <!--&lt;!&ndash;data-lightbox="image-1"&ndash;&gt;-->
-                        <!--&lt;!&ndash;data-title="Caption"&ndash;&gt;-->
-                        <!--<i class="fa fa-search"></i></a>-->
-                      <!--<h4>个人论坛</h4>-->
-                      <!--<span>用于留言与讨论或者学习记录的论坛</span>-->
-                    <!--</figcaption>-->
-                  <!--</figure>-->
-                <!--</div>-->
-
-                <!--&lt;!&ndash;第4个项目&ndash;&gt;-->
-                <!--<div class="isotope-item" data-type="nature">-->
-                  <!--<figure class="snip1321">-->
-                    <!--<img-->
-                      <!--src="assets/images/projectImage/zombieImage/zombieHome.png"-->
-                      <!--alt="sq-sample26"-->
-                    <!--/>-->
-                    <!--<figcaption>-->
-                      <!--<a href="/project?path=zombie">-->
-
-                        <!--<i class="fa fa-search"></i></a>-->
-                      <!--<h4>僵尸魅影</h4>-->
-                      <!--<span>第一人称射击游戏</span>-->
-                    <!--</figcaption>-->
-                  <!--</figure>-->
-                <!--</div>-->
-
-                <!--&lt;!&ndash;第五个项目&ndash;&gt;-->
-                <!--<div class="isotope-item" data-type="animals">-->
-                  <!--<figure class="snip1321">-->
-                    <!--<img-->
-                      <!--src="assets/images/projectImage/portfolio-06.jpg"-->
-                      <!--alt="sq-sample26"-->
-                    <!--/>-->
-                    <!--<figcaption>-->
-                      <!--<a href="/project?path=paoku">-->
-                        <!--<i class="fa fa-search"></i></a>-->
-                      <!--<h4>追逐繁星的孩子</h4>-->
-                      <!--<span>跑酷游戏</span>-->
-                    <!--</figcaption>-->
-                  <!--</figure>-->
-                <!--</div>-->
-
-
-                <!--&lt;!&ndash;第6个项目&ndash;&gt;-->
-                <!--<div class="isotope-item" data-type="people">-->
-                  <!--<figure class="snip1321">-->
-                    <!--<img-->
-                            <!--src="assets/images/projectImage/portfolio-02.jpg"-->
-                            <!--alt="sq-sample26"-->
-                    <!--/>-->
-                    <!--<figcaption>-->
-                      <!--<a href="/project?path=buyokaojinwo">-->
-                        <!--<i class="fa fa-search"></i></a>-->
-                      <!--<h4>不要靠近我</h4>-->
-                      <!--<span>小游戏</span>-->
-                    <!--</figcaption>-->
-                  <!--</figure>-->
-                <!--</div>-->
-
-
               </div>
+
+
+
+
             </div>
           </div>
         </div>
@@ -434,7 +294,8 @@
 
 
 
-          <div  th:each="socialPage,indexState : ${socialPages}" th:class="${indexState.index%2}==0?'left-image-post':'right-image-post'">
+
+          <div  th:each="socialPage,indexState : ${socialPages}" th:class="${indexState.first}?'left-image-post':'right-image-post'">
 
             <!--左右交替进行显示-->
 
@@ -509,8 +370,7 @@
             <h2>我的能力</h2>
             <div class="line-dec"></div>
 
-            <span>我也不知道我是谁，在别人眼里，我似乎是，一名科研工作人员，一名工程师，一名ACG爱好者，一名家里蹲，一名中二病晚期患者.......
-              但是我自己又是如何看待自己的了？我想我或许是一个希望探索宇宙本质，事物根源的宗教信徒吧</span>
+            <span>主要是工程能力</span>
 
           </div>
 
@@ -521,11 +381,9 @@
             <div class="col-md-6">
               <div class="service-item">
                 <div class="first-service-icon service-icon"></div>
-                <h4>HTML5 &amp; CSS3</h4>
+                <h4>算法能力</h4>
                 <p>
-                  Phasellus non convallis dolor. Integer tempor hendrerit arcu
-                  at bibendum. Sed ac ante non metus vehicula congue quis eget
-                  eros.
+                  了解常见的信号分析与特征提取方法;了解常见的机器学习算法;并且能把 Matlab与Python实现的算法融合到产品中。
                 </p>
               </div>
             </div>
@@ -534,11 +392,9 @@
             <div class="col-md-6">
             <div class="service-item">
             <div class="second-service-icon service-icon"></div>
-            <h4>Creative Ideas</h4>
+            <h4>编码能力</h4>
             <p>
-            Proin lacus massa, eleifend sed fermentum in, dignissim vel
-            metus. Nunc accumsan leo nec felis porttitor, ultricies
-            faucibus purus mollis.
+              掌握C、C#、Java、Python等编程语言与相应框架，了解不同技术所适合的业务场景，有不同语言之间的混合开发的经验。
             </p>
             </div>
             </div>
@@ -547,11 +403,12 @@
             <div class="col-md-6">
             <div class="service-item">
             <div class="third-service-icon service-icon"></div>
-            <h4>Easy Customize</h4>
+            <h4>框架能力</h4>
             <p>
-            Integer suscipit condimentum aliquet. Nam quis risus metus.
-            Nullam faucibus quam eget arcu pretium tincidunt. Nam libero
-            dui.
+              了解 Hadoop、Spark、Storm、Kafka、Flume、Hbase、Zookeeper 等大数据生态圈中常见技术的使用。
+              了解 Django与Spring Boot。
+              了解 Winform+DevExpress。
+              了解 MySQL。
             </p>
             </div>
             </div>
@@ -560,11 +417,9 @@
             <div class="col-md-6">
             <div class="service-item">
             <div class="fourth-service-icon service-icon"></div>
-            <h4>Admin Dashboard</h4>
+            <h4>工具使用</h4>
             <p>
-            Vivamus et dui a massa venenatis fringilla. Proin lacus massa,
-            eleifend sed fermentum in, dignissim vel metus. Nunc accumsan
-            leo nec felis porttitor.
+            熟练使用Windows，Mac，Ubuntu，Kail等操作系统。熟练使用GitLab等项目管理工具的使用与搭建。
             </p>
             </div>
             </div>
@@ -595,7 +450,11 @@
           <div class="row">
             <div class="right-content">
               <div class="container">
-                <form id="contact" action="" method="post">
+
+
+
+
+                <form id="contact" action="/contact" method="post">
                   <div class="row">
                     <div class="col-md-6">
                       <fieldset>
@@ -604,7 +463,7 @@
                           type="text"
                           class="form-control"
                           id="name"
-                          placeholder="Your name..."
+                          placeholder="您的大名..."
                           required=""
                         />
                       </fieldset>
@@ -616,7 +475,7 @@
                           type="text"
                           class="form-control"
                           id="email"
-                          placeholder="Your email..."
+                          placeholder="您的邮箱..."
                           required=""
                         />
                       </fieldset>
@@ -628,7 +487,7 @@
                           type="text"
                           class="form-control"
                           id="subject"
-                          placeholder="Subject..."
+                          placeholder="邮件标题..."
                           required=""
                         />
                       </fieldset>
@@ -640,7 +499,7 @@
                           rows="6"
                           class="form-control"
                           id="message"
-                          placeholder="Your message..."
+                          placeholder="正文内容..."
                           required=""
                         ></textarea>
                       </fieldset>
@@ -648,7 +507,7 @@
                     <div class="col-md-12">
                       <fieldset>
                         <button type="submit" id="form-submit" class="button">
-                          Send Message
+                          提交
                         </button>
                       </fieldset>
                     </div>
