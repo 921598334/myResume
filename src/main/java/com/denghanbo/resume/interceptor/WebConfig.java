@@ -18,7 +18,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry){
 
         //当在浏览器上访问localhost：//upload/xxx时会自动去访问后面配置的路径
-        registry.addResourceHandler("/upload/**").addResourceLocations("file:"+fullPath); //添加这一行
+        registry.addResourceHandler("/upload/**").addResourceLocations("file:"+fullPath,"classpath:/static/upload/"); //添加这一行
 
     }
 

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 //这个是主界面
@@ -43,7 +44,32 @@ public class IndexController {
 
         //从数据库中得到项目相关的文章并且显示
         List<Page> projectPages = pageRepository.findByType(PageType.PROJECT.getType());
-        model.addAttribute("projectPagess",projectPages);
+        //projectPages需要1行显示2个，这了要处理下
+        Integer count = projectPages.size();
+        List<List<Page>> allPages = new ArrayList<>();
+        //判断是是基数个还是欧数个
+        int isOdd = count%2;
+        if(isOdd==0){
+            //可以除尽表示刚好偶数个
+            for(int i=0;i<count;i=i+2){
+                List<Page> rowPages = new ArrayList<>();
+                rowPages.add(projectPages.get(i));
+                rowPages.add(projectPages.get(i+1));
+                allPages.add(rowPages);
+            }
+        }else {
+            //是基数个，最后一个需要单独处理下
+            for(int i=0;i<count;i=i+2){
+                List<Page> rowPages = new ArrayList<>();
+                rowPages.add(projectPages.get(i));
+                rowPages.add(projectPages.get(i+1));
+                allPages.add(rowPages);
+            }
+            List<Page> rowPages = new ArrayList<>();
+            rowPages.add(projectPages.get(count-1));
+            allPages.add(rowPages);
+        }
+        model.addAttribute("allPages",allPages);
 
 
         //从数据库中得社会活动相关的文章并且显示

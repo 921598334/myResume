@@ -26,6 +26,8 @@ public class FileUpload {
 
         String fullPath = System.getProperty("user.dir")+"/src/main/resources/static/upload/".concat(newFileName);
 
+        System.out.println("上传路径："+fullPath);
+
         try {
             File target = new File(fullPath);
             if (!target.getParentFile().exists()) { //判断文件父目录是否存在

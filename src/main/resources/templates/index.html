@@ -128,152 +128,87 @@
 
       <!--第三栏，我的项目-->
       <section class="section my-work" data-section="section3">
+
         <div class="container">
           <div class="section-heading">
             <h2>我的项目</h2>
             <div class="line-dec"></div>
             <span>本人主要负责软件上层系统的开发，本科与硕士的所有项目如下</span>
           </div>
+
           <div class="row">
-            <div class="isotope-wrapper">
+
+            <div >
 
 
+              <!--所有项目的大容器-->
+              <div class="isotope-box ">
+
+                <div  th:each="projectPage2,indexState : ${allPages}" th:class="${indexState.first}?'left-image-post':'right-image-post'">
 
 
-              <!--<form class="isotope-toolbar">-->
-
-                <!--<label-->
-                  <!--&gt;<input-->
-                    <!--type="radio"-->
-                    <!--data-type="*"-->
-                    <!--checked=""-->
-                    <!--name="isotope-filter"-->
-                  <!--/>-->
-                  <!--<span>所有项目</span></label-->
-                <!--&gt;-->
-
-                <!--<label-->
-                  <!--&gt;<input-->
-                    <!--type="radio"-->
-                    <!--data-type="people"-->
-                    <!--name="isotope-filter"-->
-                  <!--/>-->
-                  <!--<span>硕士项目</span></label-->
-                <!--&gt;-->
-
-                <!--<label-->
-                  <!--&gt;<input-->
-                    <!--type="radio"-->
-                    <!--data-type="nature"-->
-                    <!--name="isotope-filter"-->
-                  <!--/>-->
-                  <!--<span>本科项目</span></label-->
-                <!--&gt;-->
-
-                <!--<label-->
-                  <!--&gt;<input-->
-                    <!--type="radio"-->
-                    <!--data-type="animals"-->
-                    <!--name="isotope-filter"-->
-                  <!--/>-->
-                  <!--<span>游戏类</span></label-->
-                <!--&gt;-->
-
-                <!--<label-->
-                <!--&gt;<input-->
-                        <!--type="radio"-->
-                        <!--data-type="animals"-->
-                        <!--name="isotope-filter"-->
-                <!--/>-->
-                  <!--<span>网站类</span></label-->
-                <!--&gt;-->
-
-                <!--<label-->
-                <!--&gt;<input-->
-                        <!--type="radio"-->
-                        <!--data-type="animals"-->
-                        <!--name="isotope-filter"-->
-                <!--/>-->
-                  <!--<span>监控系统</span></label-->
-                <!--&gt;-->
+                  <div class="row" >
 
 
-                <!--<label-->
-                <!--&gt;<input-->
-                        <!--type="radio"-->
-                        <!--data-type="animals"-->
-                        <!--name="isotope-filter"-->
-                <!--/>-->
-                  <!--<span>大数据与机器学习类</span></label-->
-                <!--&gt;-->
+                    <div class="col-md-6" th:each="projectPage,indexState_row : ${projectPage2}">
+                      <div th:class="${indexState_row.index%2}==0?'left-image':'right-image'">
+                        <figure class="snip1321">
+                          <img
+                                  th:src="${projectPage.getImag()}"
+                                  alt="sq-sample26"
+                          />
+                          <figcaption>
+                            <a th:href="@{/page(path=${projectPage.getId()})}">
 
-              <!--</form>-->
+                              <i class="fa fa-search"></i>
 
-
-
-
-
-
-              <!--<div class="isotope-box">-->
-                <!---->
-                <!--&lt;!&ndash;项目&ndash;&gt;-->
-                <!--<div class="isotope-item" data-type="nature" th:each="projectPage : ${projectPagess}">-->
-
-                  <!--<figure class="snip1321">-->
-                    <!--<img-->
-                            <!--th:src="${projectPage.getImag()}"-->
-                            <!--alt="sq-sample26"-->
-                    <!--/>-->
-                    <!--<figcaption>-->
-                      <!--<a th:href="@{/page(path=${projectPage.getId()})}">-->
-
-                        <!--<i class="fa fa-search"></i>-->
-
-                      <!--</a>-->
-                      <!--<h4 th:text="${projectPage.getTitle()}"></h4>-->
-                      <!--<span th:text="${projectPage.getDescript()}"></span>-->
-                    <!--</figcaption>-->
-                  <!--</figure>-->
-
-                <!--</div>-->
-
-              <!--</div>-->
-
-
-
-
-
-              <div class="isotope-box">
-
-                <!--项目-->
-                <div class="isotope-item" data-type="nature" th:each="projectPage : ${projectPagess}">
-
-                  <figure class="snip1321">
-                    <img
-                            th:src="${projectPage.getImag()}"
-                            alt="sq-sample26"
-                    />
-                    <figcaption>
-                      <a th:href="@{/page(path=${projectPage.getId()})}">
-
-                        <i class="fa fa-search"></i>
-
-                      </a>
-                      <h4 th:text="${projectPage.getTitle()}"></h4>
-                      <span th:text="${projectPage.getDescript()}"></span>
-                    </figcaption>
-                  </figure>
+                            </a>
+                            <h4 th:text="${projectPage.getTitle()}"></h4>
+                            <span th:text="${projectPage.getDescript()}"></span>
+                          </figcaption>
+                        </figure>
+                      </div>
+                    </div>
 
                 </div>
+
+
+
+
+                  <!--&lt;!&ndash;一行的项目&ndash;&gt;-->
+                  <!--<div class="isotope-item" data-type="nature" th:each="projectPage,indexState : ${projectPagess}">-->
+  <!---->
+                     <!--<figure class="snip1321">-->
+                        <!--<img-->
+                                <!--th:src="${projectPage.getImag()}"-->
+                                <!--alt="sq-sample26"-->
+                        <!--/>-->
+                        <!--<figcaption>-->
+                          <!--<a th:href="@{/page(path=${projectPage.getId()})}">-->
+  <!---->
+                            <!--<i class="fa fa-search"></i>-->
+  <!---->
+                          <!--</a>-->
+                          <!--<h4 th:text="${projectPage.getTitle()}"></h4>-->
+                          <!--<span th:text="${projectPage.getDescript()}"></span>-->
+                        <!--</figcaption>-->
+                      <!--</figure>-->
+  <!---->
+                  <!--</div>-->
+
+
 
               </div>
 
 
 
 
+
             </div>
+
           </div>
         </div>
+
       </section>
 
 
@@ -284,6 +219,7 @@
       <!--第4栏，社会活动-->
       <section class="section my-services" data-section="section4">
         <div class="container">
+
           <div class="section-heading">
             <h2>我的社会活动</h2>
             <div class="line-dec"></div>
@@ -419,7 +355,7 @@
             <div class="fourth-service-icon service-icon"></div>
             <h4>工具使用</h4>
             <p>
-            熟练使用Windows，Mac，Ubuntu，Kail等操作系统。熟练使用GitLab等项目管理工具的使用与搭建。
+            熟练使用Windows，Mac，Ubuntu，Kali等操作系统。熟练使用GitLab等项目管理工具的使用与搭建。
             </p>
             </div>
             </div>

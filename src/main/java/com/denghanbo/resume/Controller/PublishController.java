@@ -179,17 +179,9 @@ public class PublishController {
         String profilePath = null;
 
 
-        //根据id得到老的文章
-        Optional<Page> oldPages = pageRepository.findById(id);
-        Page oldPage = oldPages.get();
 
-        //如果现在的文件如今与之前的一样，那就不更新图片
-        if(oldPage.getImag().equals(filePath)){
-            profilePath = oldPage.getImag();
-        }else {
-            //否则要重新上传新图片
-            profilePath = fileUpload.uploadImage(imag);
-        }
+
+
 
 
 
@@ -198,18 +190,36 @@ public class PublishController {
         page.setDescript(description);
         page.setTitle(title);
         page.setType(type);
-        page.setImag(profilePath);
+
 
 
 
         if(id == 0){
-            //如果是0表示是第一次创建，如果有其他值表示这是更新
+            //如果是0表示是第一次创建
 
+            profilePath = fileUpload.uploadImage(imag);
+            page.setImag(profilePath);
         }else {
+            //表示之后的更新操作，
 
-            //表示之后的更新操作
+            //根据id得到老的文章，判断路径是否需要更新
+            Optional<Page> oldPages = pageRepository.findById(id);
+            Page oldPage = oldPages.get();
+
+            //如果现在的文件如今与之前的一样，那就不更新图片
+            if(oldPage.getImag().equals(filePath)){
+                profilePath = oldPage.getImag();
+            }else {
+                //否则要重新上传新图片
+                profilePath = fileUpload.uploadImage(imag);
+            }
+
+            page.setImag(profilePath);
             page.setId(id);
         }
+
+
+
 
         pageRepository.save(page);
 
